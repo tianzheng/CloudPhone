@@ -45,6 +45,7 @@ public class DBManager {
 				user = null;
 			}
 		} catch (Exception e) {
+
 		} finally {
 			try {
 				rs.close();
@@ -92,16 +93,16 @@ public class DBManager {
 	 * @param address
 	 * зЂВс
 	 */
-	public int addInfo(User user){
+	public int addInfo(String username,String password,String address){
 		int num=0;
 		try {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, u, pw);
 			String sql = "insert into user values(0,?,?,?)";
 			ps=conn.prepareStatement(sql);
-			ps.setString(1, user.getUsername());
-			ps.setString(2, user.getPassword());
-			ps.setString(3,user.getAddress());
+			ps.setString(1, username);
+			ps.setString(2, password);
+			ps.setString(3,address);
 			num=ps.executeUpdate();
 		} catch (Exception e) {	
 		}finally{
@@ -125,12 +126,8 @@ public class DBManager {
 			String sql = "insert into phonenum values(0,?,?,?)";
 			ps=conn.prepareStatement(sql);
 			for (PhoneNum phoneNum : list) {
-				ps.setString(1,phoneNum.getName());
-				ps.setString(2,phoneNum.getNum());
-				ps.setInt(3, phoneNum.getUser_id());
-				ps.executeUpdate();
 			}
-			
+			int num=ps.executeUpdate();
 		} catch (Exception e) {
 		}finally{
 			try {
