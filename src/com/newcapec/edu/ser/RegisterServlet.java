@@ -36,33 +36,22 @@ public class RegisterServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		PrintWriter out = response.getWriter();
-		
-		//获取输入数据
-		StringBuffer userinfo = new StringBuffer();
-		String line = null;
-		//提取数据
-		BufferedReader br = request.getReader();
-		while((line=br.readLine())!=null){
-			userinfo = userinfo.append(line);
-		}
-		String userString = userinfo.toString();
-		Gson gson = new Gson();
-		User user =  gson.fromJson(userString, User.class);
-		
-		System.out.println(user.getUsername()+"《《《《《《《《正在注册》》》》》》》");
-		DBManager regManager = new DBManager();
-		//调用dao'层注册方法
-		int regresultNum = regManager.addInfo(user);
-		boolean result = regresultNum==1?true:false;
-		//注册结果
-		String regs ="注册失败！";
-		if(result){
-			regs = "注册成功！";
-		}
-		//响应注册结果
-		out.println(user.getUsername()+regs);
-		System.out.println(user.getUsername()+regs);
+			StringBuffer str = new StringBuffer();
+			String line = null;
+			BufferedReader sb = request.getReader();
+			while ((line = sb.readLine()) != null) {
+				str.append(line);
+			}
+			String json = str.toString();
+			Gson gson = new Gson();
+			User user = gson.fromJson(json, User.class);
+			DBManager db = new DBManager();
+			int num = db.addInfo(user);
+			if (num != 0) {
+				System.out.println("恭喜用户"+user.getUsername()+"登录成功");
+			} else {
+				System.out.println("您登录失败，请重新登录");
+			}
 	}
 	
 
