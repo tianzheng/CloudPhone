@@ -51,13 +51,16 @@ public class RegisterServlet extends HttpServlet {
 		User user =  gson.fromJson(userString, User.class);
 		
 		System.out.println(user.getUsername()+"《《《《《《《《正在注册》》》》》》》");
-		DBManager reg = new DBManager();
-		int regresultNum = reg.addInfo(user);
+		DBManager regManager = new DBManager();
+		//调用dao'层注册方法
+		int regresultNum = regManager.addInfo(user);
 		boolean result = regresultNum==1?true:false;
+		//注册结果
 		String regs ="注册失败！";
 		if(result){
 			regs = "注册成功！";
 		}
+		//响应注册结果
 		out.println(user.getUsername()+regs);
 		System.out.println(user.getUsername()+regs);
 	}
