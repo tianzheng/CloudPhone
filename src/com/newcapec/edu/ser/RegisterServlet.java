@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.newcapec.edu.entiy.User;
+import com.newcapec.edu.manager.DBManager;
 
 /**
  * Servlet implementation class RegisterServlet
@@ -34,19 +36,32 @@ public class RegisterServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
+		PrintWriter out = response.getWriter();
+		
 		//获取输入数据
 		StringBuffer userinfo = new StringBuffer();
 		String line = null;
-		
+		//提取数据
 		BufferedReader br = request.getReader();
 		while((line=br.readLine())!=null){
 			userinfo = userinfo.append(line);
 		}
+		String u = userinfo.toString();
+		Gson gu = new Gson();
+		User user =  gu.fromJson(u, User.class);
 		
-		System.out.println(userinfo.toString());
-		
-		
+		System.out.println(user.getUsername()+"《《《《《《《《正在注册》》》》》》》");
+		DBManager reg = new DBManager();
+		int regresultNum = reg.addInfo(user);
+		boolean result = regresultNum==1?true:false;
+		String regs ="注册失败！";
+		if(result){
+			regs = "注册成功！";
+		}
+		out.println(user.getUsername()+regs);
+		System.out.println(user.getUsername()+regs);
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
