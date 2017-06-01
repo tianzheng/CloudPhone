@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
         String password = user.getPassword();
         DBManager db = new DBManager();
         User user1 = db.checkInfo(username,password);
-        if(user1.getUser_id() != 0){
+        if(user != null){
             System.out.println("登录成功");
         }else {
             System.out.println("登录失败");
