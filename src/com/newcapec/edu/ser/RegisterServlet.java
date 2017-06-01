@@ -1,11 +1,17 @@
 package com.newcapec.edu.ser;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 /**
  * Servlet implementation class RegisterServlet
@@ -26,9 +32,18 @@ public class RegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String name = request.getParameter("username");
-		String password = request.getParameter("password");
-		String address = request.getParameter("address");
+		
+		//获取输入数据
+		StringBuffer userinfo = new StringBuffer();
+		String line = null;
+		
+		BufferedReader br = request.getReader();
+		while((line=br.readLine())!=null){
+			userinfo = userinfo.append(line);
+		}
+		
+		
+		System.out.println(userinfo.toString());
 		
 		
 	}
