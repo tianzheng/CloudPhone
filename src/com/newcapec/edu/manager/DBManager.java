@@ -93,13 +93,15 @@ public class DBManager {
 	/**
 	 *Ìí¼ÓÊÖ»úºÅ 
 	 */
-	public void addPhoneNum(List list){
+	public void addPhoneNum(List<PhoneNum> list){
 		try {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, u, pw);
 			String sql = "insert into phonenum values(0,?,?,?)";
 			ps=conn.prepareStatement(sql);
+			for (PhoneNum phoneNum : list) {
 			
+			}
 			int num=ps.executeUpdate();
 		} catch (Exception e) {
 		}finally{
