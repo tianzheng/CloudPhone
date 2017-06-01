@@ -40,7 +40,7 @@ public class RegisterServlet extends HttpServlet {
 			String line = null;
 			BufferedReader sb = request.getReader();
 			while ((line = sb.readLine()) != null) {
-				str.append(line);
+				str=str.append(line);
 			}
 			String json = str.toString();
 			Gson gson = new Gson();
