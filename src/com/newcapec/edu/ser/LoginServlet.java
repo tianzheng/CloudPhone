@@ -43,6 +43,7 @@ public class LoginServlet extends HttpServlet {
         DBManager db = new DBManager();
         User user1 = db.checkInfo(username,password);
         if(user1 != null){
+            request.getSession().setAttribute("user",user1);
             printWriter.write("登录成功");
         }else {
             printWriter.write("登录失败");
