@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 
 
@@ -67,7 +69,7 @@ public class DBManager {
 			ps.setString(3,address);
 			int num=ps.executeUpdate();
 		} catch (Exception e) {
-			
+				
 		}finally{
 			try {
 				ps.close();
@@ -81,14 +83,32 @@ public class DBManager {
 	/**
 	 *添加手机号 
 	 */
-	public void addPhoneNum(){
-		
+	public void addPhoneNum(List list){
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, u, pw);
+			String sql = "insert into phonenum values(0,?,?,?)";
+			ps=conn.prepareStatement(sql);
+			for(int i=0;i<list.size();i++){
+				
+			}
+			int num=ps.executeUpdate();
+		} catch (Exception e) {
+		}finally{
+			try {
+				ps.close();
+				conn.close();
+			} catch (Exception e2) {
+
+			}
+		}
 	}
 	
 	/**
 	 *还原手机号 
 	 */
 	public void restorePhoneNum(int id){
+		List list=new ArrayList<>();
 		try {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, u, pw);
@@ -96,6 +116,9 @@ public class DBManager {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
+			while(rs.next()){
+				
+			}
 		} catch (Exception e) {
 
 		} finally {
