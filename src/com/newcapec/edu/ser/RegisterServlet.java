@@ -32,7 +32,8 @@ public class RegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		//获取输入数据
 		StringBuffer userinfo = new StringBuffer();
 		String line = null;
@@ -41,7 +42,6 @@ public class RegisterServlet extends HttpServlet {
 		while((line=br.readLine())!=null){
 			userinfo = userinfo.append(line);
 		}
-		
 		
 		System.out.println(userinfo.toString());
 		
