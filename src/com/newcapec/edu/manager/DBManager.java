@@ -93,16 +93,16 @@ public class DBManager {
 	 * @param address
 	 * зЂВс
 	 */
-	public int addInfo(String username,String password,String address){
+	public int addInfo(User user){
 		int num=0;
 		try {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, u, pw);
 			String sql = "insert into user values(0,?,?,?)";
 			ps=conn.prepareStatement(sql);
-			ps.setString(1, username);
-			ps.setString(2, password);
-			ps.setString(3,address);
+			ps.setString(1, user.getUsername());
+			ps.setString(2, user.getPassword());
+			ps.setString(3,user.getAddress());
 			num=ps.executeUpdate();
 		} catch (Exception e) {	
 		}finally{
