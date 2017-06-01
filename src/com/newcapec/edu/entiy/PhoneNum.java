@@ -1,10 +1,19 @@
 package com.newcapec.edu.entiy;
 
+import java.util.List;
+
 public class PhoneNum {
 	private int phoneNum_id;
 	private String name;
 	private String num;
 	private int user_id;
+	private List<PhoneNum> list;  
+	public List<PhoneNum> getList() {
+		return list;
+	}
+	public void setList(List<PhoneNum> list) {
+		this.list = list;
+	}
 	public int getPhoneNum_id() {
 		return phoneNum_id;
 	}
