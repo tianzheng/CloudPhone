@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.newcapec.edu.entiy.PhoneNum;
+import com.newcapec.edu.entiy.User;
+
 
 
 public class DBManager {
@@ -23,8 +26,8 @@ public class DBManager {
 	 * @param password
 	 * @return 登陆验证
 	 */
-	public int checkInfo(String username, String password) {
-		int num=0;
+	public User checkInfo(String username, String password) {
+		User user = new User();
 		try {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, u, pw);
@@ -33,8 +36,13 @@ public class DBManager {
 			ps.setString(1, username);
 			ps.setString(2, password);
 			rs = ps.executeQuery();
-			if(rs.next()){
-				num=1;
+			if (rs.next()) {
+				user.setUser_id(rs.getInt("user_id"));
+				user.setUsername(rs.getString("username"));
+				user.setPassword(rs.getString("password"));
+
+			} else {
+				user = null;
 			}
 		} catch (Exception e) {
 
@@ -47,7 +55,7 @@ public class DBManager {
 
 			}
 		}
-		return num;
+		return user;
 	}
 	
 	
@@ -58,7 +66,8 @@ public class DBManager {
 	 * @param address
 	 * 注册
 	 */
-	public void addInfo(String username,String password,String address){
+	public int addInfo(String username,String password,String address){
+		int num=0;
 		try {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, u, pw);
@@ -67,7 +76,7 @@ public class DBManager {
 			ps.setString(1, username);
 			ps.setString(2, password);
 			ps.setString(3,address);
-			int num=ps.executeUpdate();
+			num=ps.executeUpdate();
 		} catch (Exception e) {
 				
 		}finally{
@@ -78,6 +87,7 @@ public class DBManager {
 
 			}
 		}
+		return num;
 	}
 	
 	/**
@@ -89,9 +99,7 @@ public class DBManager {
 			conn = DriverManager.getConnection(url, u, pw);
 			String sql = "insert into phonenum values(0,?,?,?)";
 			ps=conn.prepareStatement(sql);
-			for(int i=0;i<list.size();i++){
-				
-			}
+			
 			int num=ps.executeUpdate();
 		} catch (Exception e) {
 		}finally{
@@ -107,8 +115,8 @@ public class DBManager {
 	/**
 	 *还原手机号 
 	 */
-	public void restorePhoneNum(int id){
-		List list=new ArrayList<>();
+	public List<PhoneNum> restorePhoneNum(int id){
+		List<PhoneNum> list=new ArrayList<PhoneNum>();
 		try {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, u, pw);
@@ -117,7 +125,12 @@ public class DBManager {
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
 			while(rs.next()){
-				
+				PhoneNum p=new PhoneNum();
+				p.setPhoneNum_id(rs.getInt("phonenum_id"));
+				p.setName(rs.getString("name"));
+				p.setNum(rs.getString("num"));
+				p.setUser_id(rs.getInt("user_id"));
+				list.add(p);
 			}
 		} catch (Exception e) {
 
@@ -130,6 +143,7 @@ public class DBManager {
 
 			}
 		}
+		return list;
 	}
 	
 	
