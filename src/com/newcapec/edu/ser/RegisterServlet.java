@@ -46,9 +46,9 @@ public class RegisterServlet extends HttpServlet {
 		while((line=br.readLine())!=null){
 			userinfo = userinfo.append(line);
 		}
-		String u = userinfo.toString();
-		Gson gu = new Gson();
-		User user =  gu.fromJson(u, User.class);
+		String userString = userinfo.toString();
+		Gson gson = new Gson();
+		User user =  gson.fromJson(userString, User.class);
 		
 		System.out.println(user.getUsername()+"《《《《《《《《正在注册》》》》》》》");
 		DBManager reg = new DBManager();
