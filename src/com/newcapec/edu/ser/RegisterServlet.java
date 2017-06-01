@@ -36,6 +36,8 @@ public class RegisterServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
+		PrintWriter out = response.getWriter();
+		
 		//获取输入数据
 		StringBuffer userinfo = new StringBuffer();
 		String line = null;
@@ -50,15 +52,13 @@ public class RegisterServlet extends HttpServlet {
 		
 		System.out.println(user.getUsername()+"《《《《《《《《正在注册》》》》》》》");
 		DBManager reg = new DBManager();
-		String username = user.getUsername();
-		String password = user.getPassword();
-		String address = user.getAddress();
-		int regresultNum = reg.addInfo(username, password, address);
+		int regresultNum = reg.addInfo(user);
 		boolean result = regresultNum==1?true:false;
 		String regs ="注册失败！";
 		if(result){
 			regs = "注册成功！";
 		}
+		out.println(user.getUsername()+regs);
 		System.out.println(user.getUsername()+regs);
 	}
 	
