@@ -126,8 +126,11 @@ public class DBManager {
 			String sql = "insert into phonenum values(0,?,?,?)";
 			ps=conn.prepareStatement(sql);
 			for (PhoneNum phoneNum : list) {
+				ps.setString(1,phoneNum.getName());
+				ps.setString(2, phoneNum.getNum());
+				ps.setInt(3,phoneNum.getUser_id());
+				ps.executeUpdate();
 			}
-			int num=ps.executeUpdate();
 		} catch (Exception e) {
 		}finally{
 			try {
@@ -173,7 +176,5 @@ public class DBManager {
 		return list;
 	}
 	
-	
-	
-	
+
 }
