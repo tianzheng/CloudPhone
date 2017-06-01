@@ -57,7 +57,34 @@ public class DBManager {
 		return user;
 	}
 	
-	
+	/**
+	 * 判断用户表中是否有相同
+	 */
+	public  int checkUserName(String username){
+		int num=0;
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, u, pw);
+			String sql = "select * from user where username=?";
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, username);
+			rs=ps.executeQuery();
+			if(rs.next()){
+				num=1;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}finally {
+			try {
+				rs.close();
+				ps.close();
+				conn.close();
+			} catch (Exception e2) {
+
+			}
+		}
+		return num;
+	}
 	
 	/**
 	 * @param username
