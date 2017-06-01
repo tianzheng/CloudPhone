@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 
 import com.google.gson.Gson;
@@ -27,8 +28,9 @@ public class LoginServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
         //获取输入数据
+        PrintWriter printWriter = response.getWriter();
         StringBuffer userinfo = new StringBuffer();
-        String line = null;
+        String line;
 
         BufferedReader br = request.getReader();
         while((line=br.readLine())!=null){
@@ -40,10 +42,10 @@ public class LoginServlet extends HttpServlet {
         String password = user.getPassword();
         DBManager db = new DBManager();
         User user1 = db.checkInfo(username,password);
-        if(user != null){
-            System.out.println("登录成功");
+        if(user1 != null){
+            printWriter.write("登录成功");
         }else {
-            System.out.println("登录失败");
+            printWriter.write("登录失败");
         }
     }
 }
