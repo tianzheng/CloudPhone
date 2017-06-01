@@ -77,8 +77,7 @@ public class DBManager {
 			ps.setString(2, password);
 			ps.setString(3,address);
 			num=ps.executeUpdate();
-		} catch (Exception e) {
-				
+		} catch (Exception e) {	
 		}finally{
 			try {
 				ps.close();
@@ -100,7 +99,6 @@ public class DBManager {
 			String sql = "insert into phonenum values(0,?,?,?)";
 			ps=conn.prepareStatement(sql);
 			for (PhoneNum phoneNum : list) {
-			
 			}
 			int num=ps.executeUpdate();
 		} catch (Exception e) {
